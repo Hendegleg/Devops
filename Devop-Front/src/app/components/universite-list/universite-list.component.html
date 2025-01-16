@@ -1,0 +1,60 @@
+<div *ngIf="chambres.length" class="universite-list-container">
+  <h2 class="universite-title">Liste des Chambres</h2>
+  <table class="universite-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NumChambre</th>
+        <th>TypeChambre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let chambre of chambres">
+        <td>{{ chambre.idChambre }}</td>
+        <td>{{ chambre.numeroChambre }}</td>
+        <td>{{ chambre.typeC }}</td>
+        <td>
+          <button (click)="deleteChambre(chambre.idChambre)">Supprimer</button>
+          <button (click)="editChambre(chambre)">Modifier</button> <!-- Nouveau bouton pour modifier -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Formulaire d'ajout -->
+<form (submit)="onSubmit()">
+  <label for="idChambre">ID Chambre:</label>
+  <input id="idChambre" [(ngModel)]="newChambre.idChambre" name="idChambre" required />
+
+  <label for="numeroChambre">Num Chambre:</label>
+  <input id="numeroChambre" [(ngModel)]="newChambre.numeroChambre" name="numeroChambre" required />
+
+  <label for="typeC">Type Chambre:</label>
+  <input id="typeC" [(ngModel)]="newChambre.typeC" name="typeC" required />
+
+  <button type="submit">Ajouter Chambre</button>
+</form>
+
+<!-- Formulaire de modification -->
+<div *ngIf="editingChambre" class="edit-form">
+  <h3>Modifier Chambre</h3>
+  <form (submit)="onUpdateSubmit()">
+    <label for="idChambre">ID Chambre:</label>
+    <input id="idChambre" [(ngModel)]="editingChambre.idChambre" name="idChambre" readonly />
+
+    <label for="numeroChambre">Num Chambre:</label>
+    <input id="numeroChambre" [(ngModel)]="editingChambre.numeroChambre" name="numeroChambre" required />
+
+    <label for="typeC">Type Chambre:</label>
+    <input id="typeC" [(ngModel)]="editingChambre.typeC" name="typeC" required />
+
+    <button type="submit">Mettre à jour</button>
+    <button type="button" (click)="cancelEdit()">Annuler</button>
+  </form>
+</div>
+
+<div *ngIf="!chambres.length" class="no-universite-message">
+  <p>Aucune chambre trouvée.</p>
+</div>
