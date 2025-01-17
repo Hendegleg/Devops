@@ -15,11 +15,6 @@ pipeline {
             }
             steps {
                 echo 'Pulling code from PR-test'
-                git(
-                    branch: 'test-mr',
-                    url: env.GIT_REPO,
-                    credentialsId: env.GIT_CREDENTIALS_ID
-                )
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
             }
