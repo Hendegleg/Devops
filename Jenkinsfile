@@ -8,9 +8,9 @@ pipeline {
 
     stages {
         stage('Checkout PR-Test') {
-            when {
-                branch 'PR-test' 
-            }
+        when { 
+            changeRequest target: 'main' 
+        }
             steps {
                 echo 'Pulling code from PR-test'
                 echo 'Building the project...'
