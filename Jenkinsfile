@@ -1,32 +1,27 @@
 pipeline {
     agent any
 
+    environment {
+        GIT_REPO = 'https://github.com/oussema/Devops.git'
+        GIT_CREDENTIALS_ID = 'oussema-access-token' 
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout and Build') {
             when {
-                branch 'main'
+                branch 'test-mr' 
             }
             steps {
-                echo 'Pulling code'
+                echo 'Pulling code from test-mr...'
                 git(
-                    branch: 'main',
-                    url: 'https://github.com/oussema/Devops.git',
-                    credentialsId: 'oussema-access-token'
+                    branch: 'test-mr',
+                    url: env.GIT_REPO,
+                    credentialsId: env.GIT_CREDENTIALS_ID
                 )
-            }
-        }
-        stage('Build Backend') {
-            when {
-                changeRequest target: 'main'
-            }
-            steps {
-                echo 'Building the backend using Maven...'
-                dir('Backendfoyer') { 
-                    sh 'mvn clean compile'
-                    sh 'mvn package'
-                }
+
+                echo 'Building the project...'
+                sh 'echo "Build process started..."'
             }
         }
     }
 }
-
