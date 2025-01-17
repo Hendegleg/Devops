@@ -64,18 +64,18 @@ pipeline {
                 }
             }
         }
-        stage('Build Frontend on hend') {
-            when {
-                branch 'hend' 
-            }
-            steps {
-                echo 'Building the frontend...'
-                dir('Devop-Front') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-            }
-        }
+        // stage('Build Frontend on hend') {
+        //     when {
+        //         branch 'hend' 
+        //     }
+        //     steps {
+        //         echo 'Building the frontend...'
+        //         dir('Devop-Front') {
+        //             sh 'npm install'
+        //             sh 'npm run build'
+        //         }
+        //     }
+        // }
         stage('Unit Test on hend') {
             when {
                 branch 'hend' 
