@@ -7,15 +7,27 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            when { 
+        stage('Build Backend') {
+            when {
                 changeRequest()
             }
             steps {
-                echo 'Pulling code from PR-test'
-                echo 'Building the project...'
-                sh 'echo "Build process started..."'
-                
+                echo 'Building the backend using Maven...'
+                dir('Backendfoyer') {
+                    sh 'mvn clean compile'
+                    sh 'mvn package'
+                }
+        }
+        stage('Build Frontend') {
+            when {
+                changeRequest()
+            }
+            steps {
+                echo 'Building the frontend...'
+                dir('Devop-Front') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
             }
         }
     }    
