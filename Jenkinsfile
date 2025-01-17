@@ -11,11 +11,11 @@ pipeline {
         when { 
             changeRequest target: 'main' 
         }
-            steps {
-                echo 'Pulling code from PR-test'
-                echo 'Building the project...'
-                sh 'echo "Build process started..."'
-            }
+        steps {
+            echo 'Pulling code from PR-test'
+            echo 'Building the project...'
+            sh 'echo "Build process started..."'
+        }
         }
     }    
 }
