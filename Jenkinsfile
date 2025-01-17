@@ -7,21 +7,15 @@ pipeline {
     }
 
     stages {
-        stage('Checkout and Build') {
-            when {
-                branch 'PR-test' 
+        stage('Checkout main') {
+            when { 
+                changeRequest target: 'main' 
             }
             steps {
-                echo 'Pulling code from main'
-                
-                git(
-                    branch: 'test-mr',
-                    url: env.GIT_REPO,
-                    credentialsId: env.GIT_CREDENTIALS_ID
-                )
-
+                echo 'Pulling code from PR-test'
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
+                
             }
         }
     }    
