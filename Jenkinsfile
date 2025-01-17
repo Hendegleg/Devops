@@ -7,9 +7,9 @@ pipeline {
     }
 
     stages {
-        stage('Checkout main') {
+        stage('Build') {
             when { 
-                changeRequest target: 'main' 
+                changeRequest()
             }
             steps {
                 echo 'Pulling code from PR-test'
