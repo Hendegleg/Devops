@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout PR-Test') {
             when {
-                branch 'PR-test' 
+                expression { env.BRANCH_NAME == 'PR-test' }
             }
             steps {
                 echo 'Pulling code from PR-test'
