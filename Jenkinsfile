@@ -9,12 +9,13 @@ pipeline {
     stages {
         stage('build') {
             when { 
-                changeRequest target: 'main' 
+                changeRequest()
             }
             steps {
                 echo 'Pulling code from PR-test'
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
+
             }
         }
     }    
