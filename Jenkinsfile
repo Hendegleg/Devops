@@ -31,5 +31,16 @@ pipeline {
                 }
             }
         }
+        stage('Unit Test') {
+            when {
+                changeRequest()
+            }
+            steps {
+                echo 'Running unit tests for Backend...'
+                dir('Backendfoyer') {
+                    sh 'mvn test'
+                }
+            }
+        }
     }    
 }
