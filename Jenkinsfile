@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             when { 
-                branch "PR-test"
+                changeRequest()
             }
             steps {
                 echo 'Pulling code from PR-test'
