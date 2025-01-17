@@ -17,6 +17,7 @@ pipeline {
                     sh 'mvn clean compile'
                     sh 'mvn package'
                 }
+            }
         }
         stage('Build Frontend') {
             when {
