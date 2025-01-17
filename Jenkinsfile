@@ -7,15 +7,14 @@ pipeline {
     }
 
     stages {
-        stage('Checkout main') {
+        stage('Build') {
             when { 
-                changeRequest target: 'main' 
+                branch "PR-test"
             }
             steps {
                 echo 'Pulling code from PR-test'
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
-                
             }
         }
     }    
