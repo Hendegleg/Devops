@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout and Build') {
+        stage('Checkout test') {
             when {
                 branch 'test-mr' 
             }
