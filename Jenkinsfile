@@ -38,7 +38,20 @@ pipeline {
                 }
             }
         }
+        stage('Sonar') {
+            when {
+                changeRequest()
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
+                }
+            }
+        }
 
+        // Deuxième pipeline (pour la branche hend)
         stage('Build Backend on hend') {
             when {
                 branch 'hend' 
@@ -71,6 +84,18 @@ pipeline {
                 echo 'Running unit tests for Backend...'
                 dir('Backendfoyer') {
                     sh 'mvn test'
+                }
+            }
+        }
+        stage('Sonar on hend') {
+            when {
+                branch 'hend'
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
                 }
             }
         }
