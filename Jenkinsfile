@@ -64,18 +64,18 @@ pipeline {
                 }
             }
         }
-        stage('Build Frontend on hend') {
-            when {
-                branch 'hend' 
-            }
-            steps {
-                echo 'Building the frontend...'
-                dir('Devop-Front') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-            }
-        }
+        // stage('Build Frontend on hend') {
+        //     when {
+        //         branch 'hend' 
+        //     }
+        //     steps {
+        //         echo 'Building the frontend...'
+        //         dir('Devop-Front') {
+        //             sh 'npm install'
+        //             sh 'npm run build'
+        //         }
+        //     }
+        // }
         stage('Unit Test on hend') {
             when {
                 branch 'hend' 
@@ -87,18 +87,18 @@ pipeline {
                 }
             }
         }
-        stage('Sonar on hend') {
-            when {
-                branch 'hend'
-            }
-            steps {
-                script {
-                    dir('Backendfoyer') {
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
-                    }
-                }
-            }
-        }
+        // stage('Sonar on hend') {
+        //     when {
+        //         branch 'hend'
+        //     }
+        //     steps {
+        //         script {
+        //             dir('Backendfoyer') {
+        //                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+        //             }
+        //         }
+        //     }
+        // }
         stage('Build Docker Image') {
             steps {
                 script {
