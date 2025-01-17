@@ -8,14 +8,14 @@ pipeline {
 
     stages {
         stage('Checkout PR-Test') {
-        when { 
-            changeRequest target: 'main' 
-        }
-        steps {
-            echo 'Pulling code from PR-test'
-            echo 'Building the project...'
-            sh 'echo "Build process started..."'
-        }
+            when { 
+                changeRequest target: 'main' 
+            }
+            steps {
+                echo 'Pulling code from PR-test'
+                echo 'Building the project...'
+                sh 'echo "Build process started..."'
+            }
         }
     }    
 }
