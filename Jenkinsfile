@@ -7,14 +7,29 @@ pipeline {
     }
 
     stages {
+        stage('Load Jenkinsfile from Main') {
+            steps {
+                script {
+                    echo 'Pulling Jenkinsfile from main branch...'
+                    checkout([$class: 'GitSCM', 
+                        branches: [[name: '*/main']],
+                        userRemoteConfigs: [[
+                            url: env.GIT_REPO,
+                            credentialsId: env.GIT_CREDENTIALS_ID
+                        ]]
+                    ])
+                }
+            }
+        }
+
         stage('Checkout and Build') {
             when {
-                branch 'PR-test' 
+                branch 'PR-test'
             }
             steps {
-                echo 'Pulling code from test-mr...'
+                echo 'Pulling code from PR-test branch...'
                 git(
-                    branch: 'test-mr',
+                    branch: 'PR-test',
                     url: env.GIT_REPO,
                     credentialsId: env.GIT_CREDENTIALS_ID
                 )
