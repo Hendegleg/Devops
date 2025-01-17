@@ -13,6 +13,7 @@ pipeline {
             }
             steps {
                 echo 'Pulling code from main'
+                
                 git(
                     branch: 'test-mr',
                     url: env.GIT_REPO,
