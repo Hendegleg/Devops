@@ -9,8 +9,9 @@ pipeline {
     stages {
         stage('Checkout PR-Test') {
             when {
-                expression { env.BRANCH_NAME == 'PR-test' }
-                
+                expression {
+                    return env.GIT_BRANCH == "origin/PR-test"
+                }
             }
             steps {
                 echo 'Pulling code from PR-test'
