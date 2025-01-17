@@ -3,9 +3,6 @@ pipeline {
 
     stages {
         stage('Checkout Code') {
-            when {
-                branch 'main'
-            }
             steps {
                 echo 'Pulling code'
                 git(
@@ -17,7 +14,7 @@ pipeline {
         }
         stage('Build Backend') {
             when {
-                changeRequest target: 'main'
+                branch 'test-mr' 
             }
             steps {
                 echo 'Building the backend using Maven...'
