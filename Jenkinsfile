@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout PR-Test') {
+        stage('Checkout') {
             when { 
                 changeRequest target: 'main' 
             }
