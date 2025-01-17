@@ -7,12 +7,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout and Build') {
+        stage('Checkout PR-Test') {
             when {
                 branch 'PR-test' 
             }
             steps {
-                echo 'Pulling code from test-mr...'
+                echo 'Pulling code from PT-test'
                 git(
                     branch: 'test-mr',
                     url: env.GIT_REPO,
