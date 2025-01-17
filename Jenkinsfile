@@ -23,6 +23,5 @@ pipeline {
                 sh 'echo "Build process started..."'
             }
         }
-    }
-    
+    }    
 }
