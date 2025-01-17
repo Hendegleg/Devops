@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout and Build') {
             when {
-                branch 'test-mr' 
+                branch 'PR-test' 
             }
             steps {
                 echo 'Pulling code from test-mr...'
