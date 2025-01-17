@@ -21,6 +21,7 @@ pipeline {
 
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
+                
             }
         }
     }
