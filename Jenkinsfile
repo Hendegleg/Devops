@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('build') {
             when { 
                 changeRequest target: 'main' 
             }
@@ -15,7 +15,6 @@ pipeline {
                 echo 'Pulling code from PR-test'
                 echo 'Building the project...'
                 sh 'echo "Build process started..."'
-                
             }
         }
     }    
