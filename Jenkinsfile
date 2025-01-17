@@ -103,7 +103,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building Docker image..'
-                    sh "docker build -t hendlegleg/tp-foyer:5.0.0 ."
+                    sh "docker build -t hendlegleg/tp-foyer:5.0.0 ."//addpip
                 }
             }
         }
