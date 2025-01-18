@@ -136,12 +136,12 @@ pipeline {
                 when {
                     branch 'release-*'
                 }
-            steps {
-                script {
-                    echo 'Building Docker image..'
-                    sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"//addpippip
+                steps {
+                    script {
+                        echo 'Building Docker image..'
+                        sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"//addpippip
+                    }
                 }
-            }
             }
         }
         stage('Docker Push') {
