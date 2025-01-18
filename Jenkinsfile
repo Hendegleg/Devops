@@ -149,15 +149,15 @@ pipeline {
                 when {
                     branch 'release-*'
                 }
-            steps {
-                script {
-                    echo 'pushing'
-                    withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh '''
-                        docker push hendlegleg/tpfoyer
-                        '''
+                steps {
+                    script {
+                        echo 'pushing'
+                        withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                            sh '''
+                            docker push hendlegleg/tpfoyer
+                            '''
+                        }
                     }
-                }
             }
         }
     }
