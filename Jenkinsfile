@@ -157,6 +157,7 @@ pipeline {
                 echo 'Deploying the application using the created Docker images...'
                 dir('Backendfoyer') {
                     sh 'docker-compose up -d'
+                //h
                 }
             }
     }
