@@ -132,6 +132,7 @@ pipeline {
                 script {
                     echo 'Building Docker image..'
                     sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"
+                    sh "docker build -t hendlegleg/tpfoyerfront -f Devop-Front/Dockerfile Devop-Front/"
                 }
             }
         }
@@ -145,10 +146,18 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         docker push hendlegleg/tpfoyer 
+                        docker push hendlegleg/tpfoyerfront
                         '''
                     }
                 }//hhhh
             }
         }
+        stage('Deploy Application') {
+            steps {
+                echo 'Deploying the application using the created Docker images...'
+                dir('Backendfoyer') {
+                    sh 'docker-compose up -d'
+                }
+            }
     }
 }
