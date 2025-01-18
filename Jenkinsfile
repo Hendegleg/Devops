@@ -20,12 +20,12 @@ pipeline {
                 }
             }
         }
-        stage('Build Frontend') {
+        stage('Build Frontend') {//hH
             when {
                 changeRequest()
             }
             steps {
-                echo 'Building the frontend...'
+                echo 'Building the frontend...' 
                 dir('Devop-Front') {
                     sh 'npm install'
                     sh 'npm run build'
@@ -43,18 +43,18 @@ pipeline {
                 }
             }
         }
-        // stage('Sonar') {
-        //     when {
-        //         changeRequest()
-        //     }
-        //     steps {
-        //         script {
-        //             dir('Backendfoyer') {
-        //                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Sonar') {
+            when {
+                changeRequest()
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
+                }
+            }
+        }
 
 //------------------------------------------------------------//
         // Deuxième pipeline (pour la branche hend)
@@ -93,18 +93,18 @@ pipeline {
                 }
             }
         }
-        // stage('Sonar on hend') {
-        //     when {
-        //         branch 'hend'
-        //     }
-        //     steps {
-        //         script {
-        //             dir('Backendfoyer') {
-        //                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Sonar on hend') {
+            when {
+                branch 'hend'
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
+                }
+            }
+        }
 
 //------------------------------------------------------------//
 
@@ -132,6 +132,7 @@ pipeline {
                 script {
                     echo 'Building Docker image..'
                     sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"
+                    sh "docker build -t hendlegleg/tpfoyerfront -f Devop-Front/Dockerfile Devop-Front/"
                 }
             }
         }
@@ -145,10 +146,23 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         docker push hendlegleg/tpfoyer 
+                        docker push hendlegleg/tpfoyerfront
                         '''
                     }
                 }//hhhh
             }
         }
+            stage('Deploy Application') {
+                 when {
+                branch 'release-*'
+            }
+            steps {
+                echo 'Deploying the application using the created Docker images...'
+                dir('Backendfoyer') {
+                    sh 'docker-compose up -d'
+                //h
+                }
+            }
     }
+}
 }
