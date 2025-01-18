@@ -10,7 +10,7 @@ pipeline {
         // Premier pipeline (pour les demandes de fusion)
         // stage('Build Backend') {
         //     when {
-        //         changeRequest() 
+        //         changeRequest()
         //     }
         //     steps {
         //         echo 'Building the backend using Maven...'
@@ -22,7 +22,7 @@ pipeline {
         // }
         // stage('Build Frontend') {
         //     when {
-        //         changeRequest() 
+        //         changeRequest()
         //     }
         //     steps {
         //         echo 'Building the frontend...'
@@ -60,7 +60,7 @@ pipeline {
         // Deuxième pipeline (pour la branche hend)
         // stage('Build Backend on hend') {
         //     when {
-        //         branch 'hend' 
+        //         branch 'hend'
         //     }
         //     steps {
         //         echo 'Building the backend using Maven...'
@@ -72,7 +72,7 @@ pipeline {
         // }
         // stage('Build Frontend on hend') {
         //     when {
-        //         branch 'hend' 
+        //         branch 'hend'
         //     }
         //     steps {
         //         echo 'Building the frontend...'
@@ -84,7 +84,7 @@ pipeline {
         // }
         // stage('Unit Test on hend') {
         //     when {
-        //         branch 'hend' 
+        //         branch 'hend'
         //     }
         //     steps {
         //         echo 'Running unit tests for Backend...'
@@ -111,11 +111,11 @@ pipeline {
         // 3rd pipeline
         stage('Docker Login') {
             when {
-                branch pattern: 'release-*', comparator: 'REGEXP'
+                branch 'release-*'
             }
             steps {
                 script {
-                    echo 'Logging in to Docker registry...'
+                    echo 'login'
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
@@ -126,22 +126,22 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch pattern: 'release-*', comparator: 'REGEXP'
+                branch 'release-*'
             }
             steps {
                 script {
-                    echo 'Building Docker image...'
+                    echo 'Building Docker image..'
                     sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"
                 }
             }
         }
         stage('Docker Push') {
             when {
-                branch pattern: 'release-*', comparator: 'REGEXP'
+                branch 'release-*'
             }
             steps {
                 script {
-                    echo 'Pushing Docker image to registry...'
+                    echo 'pushing'
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         docker push hendlegleg/tpfoyer
