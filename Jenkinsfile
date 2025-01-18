@@ -60,7 +60,7 @@ pipeline {
         // Deuxième pipeline (pour la branche hend)
         stage('Build Backend on hend') {
             when {
-                branch 'hend'
+                branch 'dev'
             }
             steps {
                 echo 'Building the backend using Maven...'
@@ -72,7 +72,7 @@ pipeline {
         }
         stage('Build Frontend on hend') {
             when {
-                branch 'hend'
+                branch 'dev'
             }
             steps {
                 echo 'Building the frontend...'
@@ -84,7 +84,7 @@ pipeline {
         }
         stage('Unit Test on hend') {
             when {
-                branch 'hend'
+                branch 'dev'
             }
             steps {
                 echo 'Running unit tests for Backend...'
@@ -95,7 +95,7 @@ pipeline {
         }
         stage('Sonar on hend') {
             when {
-                branch 'hend'
+                branch 'dev'
             }
             steps {
                 script {
