@@ -43,18 +43,18 @@ pipeline {
                 }
             }
         }
-        // stage('Sonar') {
-        //     when {
-        //         changeRequest()
-        //     }
-        //     steps {
-        //         script {
-        //             dir('Backendfoyer') {
-        //                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Sonar') {
+            when {
+                changeRequest()
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
+                }
+            }
+        }
 
 //------------------------------------------------------------//
         // Deuxième pipeline (pour la branche hend)
@@ -93,18 +93,18 @@ pipeline {
                 }
             }
         }
-        // stage('Sonar on hend') {
-        //     when {
-        //         branch 'hend'
-        //     }
-        //     steps {
-        //         script {
-        //             dir('Backendfoyer') {
-        //                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Sonar on hend') {
+            when {
+                branch 'hend'
+            }
+            steps {
+                script {
+                    dir('Backendfoyer') {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Hend@1234567'
+                    }
+                }
+            }
+        }
 
 //------------------------------------------------------------//
 
@@ -160,4 +160,5 @@ pipeline {
                 }
             }
     }
+}
 }
