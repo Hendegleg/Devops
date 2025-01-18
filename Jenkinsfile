@@ -142,6 +142,7 @@ pipeline {
                     sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"//addpippip
                 }
             }
+            }
         }
         stage('Docker Push') {
             stage('Docker Login') {
