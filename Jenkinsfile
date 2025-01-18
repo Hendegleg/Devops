@@ -25,7 +25,7 @@ pipeline {
                 changeRequest()
             }
             steps {
-                echo 'Building the frontend...'
+                echo 'Building the frontend...' 
                 dir('Devop-Front') {
                     sh 'npm install'
                     sh 'npm run build'
