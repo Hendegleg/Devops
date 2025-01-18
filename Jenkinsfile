@@ -56,6 +56,8 @@ pipeline {
         //     }
         // }
 
+
+//------------------------------------------------------------//
         // Deuxième pipeline (pour la branche hend)
         // stage('Build Backend on hend') {
         //     when {
@@ -104,15 +106,8 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             echo 'Building Docker image..'
-        //             sh "docker build -t hendlegleg/tp-foyer:5.0.0 -f Backendfoyer/Dockerfile Backendfoyer/"//addpippip
-        //         }
-        //     }
-        // }
 
+//------------------------------------------------------------//
 
 
         // 3rd pipeline
