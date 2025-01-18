@@ -56,7 +56,6 @@ pipeline {
         //     }
         // }
 
-
 //------------------------------------------------------------//
         // Deuxième pipeline (pour la branche hend)
         // stage('Build Backend on hend') {
@@ -109,15 +108,14 @@ pipeline {
 
 //------------------------------------------------------------//
 
-
         // 3rd pipeline
         stage('Docker Login') {
             when {
-                branch 'release-*'
+                branch pattern: 'release-*', comparator: 'REGEXP'
             }
             steps {
                 script {
-                    echo 'login'
+                    echo 'Logging in to Docker registry...'
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
@@ -127,31 +125,27 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            stage('Docker Login') {
-                when {
-                    branch 'release-*'
-                }
-                steps {
-                    script {
-                        echo 'Building Docker image..'
-                        sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"//addpippip
-                    }
+            when {
+                branch pattern: 'release-*', comparator: 'REGEXP'
+            }
+            steps {
+                script {
+                    echo 'Building Docker image...'
+                    sh "docker build -t hendlegleg/tpfoyer -f Backendfoyer/Dockerfile Backendfoyer/"
                 }
             }
         }
         stage('Docker Push') {
-            stage('Docker Login') {
-                when {
-                    branch 'release-*'
-                }
-                steps {
-                    script {
-                        echo 'pushing'
-                        withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                            sh '''
-                            docker push hendlegleg/tpfoyer
-                            '''
-                        }
+            when {
+                branch pattern: 'release-*', comparator: 'REGEXP'
+            }
+            steps {
+                script {
+                    echo 'Pushing Docker image to registry...'
+                    withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                        docker push hendlegleg/tpfoyer
+                        '''
                     }
                 }
             }
