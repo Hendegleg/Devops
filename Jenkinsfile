@@ -152,7 +152,10 @@ pipeline {
                 }//hhhh
             }
         }
-        stage('Deploy Application') {
+            stage('Deploy Application') {
+                 when {
+                branch 'release-*'
+            }
             steps {
                 echo 'Deploying the application using the created Docker images...'
                 dir('Backendfoyer') {
