@@ -144,10 +144,10 @@ pipeline {
                     echo 'pushing'
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
-                        docker push hendlegleg/tpfoyer
+                        docker push hendlegleg/tpfoyer 
                         '''
                     }
-                }
+                }//hh
             }
         }
     }
